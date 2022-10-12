@@ -59,6 +59,12 @@ def get_movie_titles() -> List[str]:
     return movies
 
 
+def get_words() -> List[str]:
+    with open('words.txt') as fp:
+        words = [x for x in fp.read().split('\n') if x and not x.startswith('#')]
+    return words
+
+
 chat = Chat(FILE)
 
 # (1) How many bad words are in the messages?
@@ -80,13 +86,23 @@ for hour in averages.values():
 usage = sorted([(b, a) for a, b in average_counts.items()], reverse=True)
 print(f'Top 5 UTC offsets:\n{os.linesep.join(f"{b - 12}h - {a} users" for a, b in usage[0:5])}\n')
 
+## (4) What are the most commonly used words not present in a dictionary?
+common_words = get_words()
+uncommon_words = defaultdict(int)
+for message in chat:
+    for word in message.body_translated.lower().split(' '):
+        if word not in common_words and word.isalpha():
+            uncommon_words[word] += 1
+usage = sorted([(b, a) for a, b in uncommon_words.items()], reverse=True)
+print(f'Top 20 unusual words:\n{os.linesep.join(f"{b} - {a} times" for a, b in usage[0:30])}\n')
+
 # (7) What are titles of some movies or songs they reference?
 movies = {m: 0 for m in get_movie_titles()}
 chat_full = chat.get_full().lower()
 for movie in movies:
     movies[movie] += len(chat_full.split(f' {movie.lower()} ')) - 1
 usage = sorted([(b, a) for a, b in movies.items()], reverse=True)
-print(f'Top 30 referenced movies:\n{os.linesep.join(f"{b} - {a} times" for a, b in usage[0:10])}\n')
+print(f'Top 30 referenced movies:\n{os.linesep.join(f"{b} - {a} times" for a, b in usage[0:30])}\n')
 
 # ( ) What smileys do the hackers use?
 smileys = {
