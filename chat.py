@@ -4,7 +4,7 @@ import datetime
 import dataclasses
 from collections import defaultdict
 from re import A
-from typing import Optional, List
+from typing import Optional, List, Tuple
 
 
 FILE = 'jabber_chat_2021_2022_translated.csv'
@@ -46,9 +46,12 @@ class Chat:
         return '\n'.join(f' {m.body_original} ' for m in self)
 
 
-def get_bad_words() -> List[str]:
+def get_bad_words() -> List[Tuple[str, bool]]:
     with open('swearwords.txt') as fp:
-        swearwords = [x for x in fp.read().split('\n') if x and not x.startswith('#')]
+        swearwords = [
+            (x.split(' 1')[0], x.endswith(' 1'))
+            for x in fp.read().split('\n') if x and not x.startswith('#')
+        ]
     return swearwords
 
 
@@ -68,12 +71,15 @@ def get_words() -> List[str]:
 chat = Chat(FILE)
 
 # (1) How many bad words are in the messages?
-bad_words = {w: 0 for w in get_bad_words()}
+bad_words = {(w, p): 0 for w, p in get_bad_words()}
 for message in chat:
-    for word in bad_words:
-        bad_words[word] += len(message.body_translated.lower().split(word.lower())) - 1
+    for (word, partial) in bad_words:
+        lookup = word
+        if not partial:
+            lookup = f' {word} '
+        bad_words[(word, partial)] += len(message.body_translated.lower().split(lookup.lower())) - 1
 usage = sorted([(b, a) for a, b in bad_words.items()], reverse=True)
-print(f'Top 10 bad words:\n{os.linesep.join(f"{b} - {a} times" for a, b in usage[0:10])}\n')
+print(f'Top 10 bad words:\n{os.linesep.join(f"{b} - {a} times" for a, (b, _) in usage[0:10])}\n')
 
 ## (2) In what time zones do the hackers probably live?
 hours_per_sender = defaultdict(list)
