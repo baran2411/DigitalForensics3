@@ -1,38 +1,38 @@
 # List of English swearwords
 # https://en.wiktionary.org/wiki/Category:English_swear_words; 2022-12-10
 
-arse
-arsehead
-arsehole
+arse 1
+arsehead 1
+arsehole 1
 ass
-asshole
-bastard
-bitch
+asshole 1
+bastard 1
+bitch 1
 bloody
 bollocks
-brotherfucker
+brotherfucker 1
 bugger
-bullshit
-child-fucker
+bullshit 1
+child-fucker 1
 Christ on a bike
 Christ on a cracker
-cock
-cocksucker
-crap
+cock 1
+cocksucker 1
+crap 1
 cunt
-damn
-damn it
-dick
-dickhead
+damn 1
+damn it 1
+dick 1
+dickhead 1
 dyke
-fatherfucker
+fatherfucker 1
 frigger
-fuck
-goddamn
+fuck 1
+goddamn 1
 godsdamn
 hell
-holy shit
-horseshit
+holy shit 1
+horseshit 1
 in shit
 Jesus Christ
 Jesus fuck
@@ -41,20 +41,20 @@ Jesus Harold Christ
 Jesus wept
 Jesus, Mary and Joseph
 kike
-motherfucker
-nigga
+motherfucker 1
+nigga 1
 nigra
-piss
+piss 1
 prick
-pussy
-shit
-shit ass
-shite
-sisterfucker
-slut
+pussy 1
+shit 1
+shit ass 1
+shite 1
+sisterfucker 1
+slut 1
 son of a bitch
 son of a whore
 spastic
 sweet Jesus
 twat
-wanker
+wanker 1
