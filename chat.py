@@ -100,7 +100,7 @@ for message in chat:
         if word not in common_words and word.isalpha():
             uncommon_words[word] += 1
 usage = sorted([(b, a) for a, b in uncommon_words.items()], reverse=True)
-print(f'Top 20 unusual words:\n{os.linesep.join(f"{b} - {a} times" for a, b in usage[0:30])}\n')
+print(f'Top 20 unusual words:\n{os.linesep.join(f"{b} - {a} times" for a, b in usage[0:20])}\n')
 
 # (7) What are titles of some movies or songs they reference?
 movies = {m: 0 for m in get_movie_titles()}
@@ -108,7 +108,7 @@ chat_full = chat.get_full().lower()
 for movie in movies:
     movies[movie] += len(chat_full.split(f' {movie.lower()} ')) - 1
 usage = sorted([(b, a) for a, b in movies.items()], reverse=True)
-print(f'Top 30 referenced movies:\n{os.linesep.join(f"{b} - {a} times" for a, b in usage[0:30])}\n')
+print(f'Top 20 referenced movies:\n{os.linesep.join(f"{b} - {a} times" for a, b in usage[0:20])}\n')
 
 # ( ) What smileys do the hackers use?
 smileys = {
